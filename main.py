@@ -4,9 +4,17 @@ import cv2
 import mediapipe as mp
 from fastapi import FastAPI, File, UploadFile
 from collections import Counter
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']
